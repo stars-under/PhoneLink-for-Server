@@ -330,7 +330,7 @@ char *socketStream::socketRead(size_t *len)
         return 0;
     }
     if (head.len >= MAX_DATA_LEN)
-    {
+    {   
         errorOut("数据长度(%d)过大!!", head.len);
         return 0;
     }
@@ -435,16 +435,16 @@ int DeviceUnit::operator==(DeviceUnit unit)
     return false;
 }
 
-std::list<DeviceUnit *>::iterator DeviceUnit::ListLookUpThis(std::list<DeviceUnit *> list)
+std::list<DeviceUnit *>::iterator DeviceUnit::ListLookUpThis(std::list<DeviceUnit *> *list)
 {
-    for (std::list<DeviceUnit *>::iterator i = list.begin(); i != list.end(); i++)
+    for (std::list<DeviceUnit *>::iterator i = list->begin(); i != list->end(); i++)
     {
         if (**i == *this)
         {
             return i;
         }
     }
-    return list.end();
+    return list->end();
 }
 
 socketStream::socketStream(int socket)

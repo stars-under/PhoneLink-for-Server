@@ -25,7 +25,7 @@ int GetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device)
         return 0;
     }
 
-    std::list<DeviceUnit *>::iterator itDevice = device->ListLookUpThis(it->second->deviceList);
+    std::list<DeviceUnit *>::iterator itDevice = device->ListLookUpThis(&it->second->deviceList);
 
     if (itDevice != it->second->deviceList.end())
     {
@@ -68,6 +68,9 @@ int SetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device, char *funName, c
     it->second->data = data;
     it->second->dataLen = dataLen;
     it->second->syncFun = temporaryFun;
+    
+    //清空列表
+    it->second->deviceList.clear();
     for (std::list<DeviceUnit *>::iterator i = args->deviceUnitList.begin(); i != args->deviceUnitList.end(); i++)
     {
         DeviceUnit *deviceTarget = (*i);

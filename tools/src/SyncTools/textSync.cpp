@@ -20,7 +20,7 @@ int textSync(PhoneLinkDevice *args, DeviceUnit *device)
     {
         DeviceUnit *deviceTarget = (*i);
         //设备离线或是自身
-        if (device->OnLineStatus == false || deviceTarget == device)
+        if (deviceTarget->OnLineStatus == false || deviceTarget == device)
         {
             continue;
         }

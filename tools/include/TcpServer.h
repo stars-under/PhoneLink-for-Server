@@ -62,7 +62,7 @@ public:
     DeviceUnit &operator=(const DeviceUnit &DeviceUnit);
     int operator==(DeviceUnit *unit);
     int operator==(DeviceUnit unit);
-    std::list<DeviceUnit*>::iterator ListLookUpThis(std::list<DeviceUnit*> list);
+    std::list<DeviceUnit*>::iterator ListLookUpThis(std::list<DeviceUnit*> *list);
     bool OffLink();
     ~DeviceUnit();
 };
