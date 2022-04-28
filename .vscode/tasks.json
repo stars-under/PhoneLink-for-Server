@@ -1,0 +1,11 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "Make",
+            "command": "make",
+            "detail": "make 任务"
+        }
+    ],
+    "version": "2.0.0"
+}
