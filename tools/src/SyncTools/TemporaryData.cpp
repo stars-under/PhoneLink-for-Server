@@ -64,6 +64,7 @@ int SetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device, char *funName, c
         std::pair<std::map<int32_t, TemporaryData *>::iterator, bool> res = temporaryData.insert(std::make_pair(args->key, data));
         it = res.first;
     }
+    
     it->second->funName = funName;
     it->second->data = data;
     it->second->dataLen = dataLen;
@@ -74,7 +75,7 @@ int SetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device, char *funName, c
     for (std::list<DeviceUnit *>::iterator i = args->deviceUnitList.begin(); i != args->deviceUnitList.end(); i++)
     {
         DeviceUnit *deviceTarget = (*i);
-        if (deviceTarget == device)
+        if (deviceTarget == device || deviceTarget->OnLineStatus == false)
         {
             continue;
         }

@@ -52,7 +52,7 @@ int fun(PhoneLinkDevice *args, DeviceUnit *device)
         }
         device->in->socketSendString("ON business FUN");
     funEXIT:
-        DeleteDataMemory(businessStr);
+        DeleteDataMemory(businessStr);socketSendString
     }
     return 0;
 }
