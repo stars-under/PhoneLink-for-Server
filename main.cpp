@@ -52,7 +52,7 @@ int fun(PhoneLinkDevice *args, DeviceUnit *device)
         }
         device->in->socketSendString("ON business FUN");
     funEXIT:
-        DeleteDataMemory(businessStr);socketSendString
+        DeleteDataMemory(businessStr);
     }
     return 0;
 }
@@ -74,7 +74,7 @@ int main()
     {
         server.threadLocal->join();
     }
-
+    
     printf("时间到达\n");
     return 0;
 }
