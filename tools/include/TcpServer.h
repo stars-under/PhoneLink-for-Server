@@ -21,7 +21,7 @@
 #define errorOut(...) printf(__VA_ARGS__)
 #define messageOut(...) printf(__VA_ARGS__)
 
-#define MAX_DATA_LEN (0x10000)
+#define MAX_DATA_LEN (0x100000)
 
 #define DeleteDataMemory(data) \
     delete[] data;             \
