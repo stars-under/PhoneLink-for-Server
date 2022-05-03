@@ -3,6 +3,7 @@
 #include "TcpServer.h"
 #include "textSync.h"
 #include "TemporaryData.h"
+#include "SyncImage.h"
 
 int getDeviceInformation(PhoneLinkDevice *args, DeviceUnit *device)
 {
@@ -22,7 +23,9 @@ int setDeviceInformation(PhoneLinkDevice *args, DeviceUnit *device)
 
 ShellType funFrom[] = {
     textSync, "textSync",
-    GetTemporaryData, "GetTemporaryData"};
+    GetTemporaryData, "GetTemporaryData",
+    SyncImage,"SyncImage",
+    };
 
 int fun(PhoneLinkDevice *args, DeviceUnit *device)
 {
@@ -68,7 +71,7 @@ int main()
 {
     signal(SIGPIPE, signal_callback_handler);
     printf("hello word!");
-    TcpServer server(2562, &fun);
+    TcpServer server(SOCKET_PORT, &fun);
     fflush(stdout);
     if (server.threadLocal != NULL)
     {

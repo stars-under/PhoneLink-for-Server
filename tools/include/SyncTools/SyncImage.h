@@ -4,5 +4,7 @@
 #include "TcpServer.h"
 
 
+int SyncImage(PhoneLinkDevice *args, DeviceUnit *device);
+
 
 #endif
