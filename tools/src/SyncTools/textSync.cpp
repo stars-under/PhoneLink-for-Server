@@ -1,5 +1,11 @@
 #include "textSync.h"
 
+int DeleteTemporaryDataMomery(TemporaryData *args)
+{
+    DeleteDataMemory(args->data);
+    return 1;
+}
+
 int textSync(PhoneLinkDevice *args, DeviceUnit *device)
 {
     size_t len = 0;
@@ -62,18 +68,14 @@ int textSync(PhoneLinkDevice *args, DeviceUnit *device)
         syncSuccessNum++;
     }
 
-    if (syncSuccessNum == 0)
-    {
-        device->in->socketSendString("当前只有一台设备,将数据置于暂存区");
-        SetTemporaryData(args, device, "textSync", text, textLen, textTemporaryDataSync);
-        return 0;
-    }
-
-    DeleteDataMemory(text);
+    //数据在暂存区内生命周期还没结束
+    // DeleteDataMemory(text);
 
     device->in->socketSendString("OK");
 
     device->in->socketSend(&syncSuccessNum, sizeof(syncSuccessNum));
+
+    SetTemporaryData(args, device, text, textLen, textTemporaryDataSync, DeleteTemporaryDataMomery);
 
     return 1;
 }
@@ -102,3 +104,4 @@ int textTemporaryDataSync(TemporaryData *args, DeviceUnit *device)
 
     return 1;
 }
+

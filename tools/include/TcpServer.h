@@ -78,6 +78,7 @@ typedef struct PhoneLinkDevice
     public:
     std::mutex *lock;
     int32_t key = NULL;
+    char keyString[0x09];
     std::list<DeviceUnit *> deviceUnitList;
     PhoneLinkDevice();
     PhoneLinkDevice(int32_t key);

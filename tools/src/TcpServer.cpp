@@ -330,7 +330,7 @@ char *socketStream::socketRead(size_t *len)
         return 0;
     }
     if (head.len >= MAX_DATA_LEN)
-    {   
+    {
         errorOut("数据长度(%d)过大!!", head.len);
         return 0;
     }
@@ -469,6 +469,7 @@ PhoneLinkDevice::PhoneLinkDevice(int32_t key)
 {
     this->key = key;
     this->lock = new std::mutex();
+    sprintf(this->keyString, "%x", key);
 }
 
 int PhoneLinkDevice::operator==(PhoneLinkDevice device)

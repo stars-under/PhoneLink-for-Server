@@ -3,7 +3,7 @@ LD = g++
 SRCS = $(wildcard *.cpp tools/src/*.cpp tools/src/*/*.cpp)
 OBJS = $(patsubst %cpp, $(BUILD)/%o, $(SRCS))
 RELY_ON = $(patsubst %cpp, $(BUILD)/%d, $(SRCS))
-DEFINE = -D SOCKET_PORT=2564
+DEFINE = -D SOCKET_PORT=2564 -D SAVE_FILE_PATH=\"file\"
 # -I指定头文件目录
 INCLUDE = -I./tools/include -I./tools/include/SyncTools
 # -L指定库文件目录，-l指定静态库名字(去掉文件名中的lib前缀和.a后缀)

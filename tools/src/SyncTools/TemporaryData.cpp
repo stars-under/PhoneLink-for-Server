@@ -55,7 +55,7 @@ std::list<char *>::iterator lookUpListCharPointer(std::list<char *> *list, char 
     return list->end();
 }
 
-int SetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device, char *funName, char *data, size_t dataLen, int (*temporaryFun)(TemporaryData *, DeviceUnit *))
+int SetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device, char *data, size_t dataLen, int (*temporaryFun)(TemporaryData *, DeviceUnit *), int (*deleteMemory)(TemporaryData *))
 {
     std::map<int32_t, TemporaryData *>::iterator it = temporaryData.find(args->key);
     if (it == temporaryData.end())
@@ -64,12 +64,17 @@ int SetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device, char *funName, c
         std::pair<std::map<int32_t, TemporaryData *>::iterator, bool> res = temporaryData.insert(std::make_pair(args->key, data));
         it = res.first;
     }
-    
-    it->second->funName = funName;
+
+    if (it->second->data != NULL)
+    {
+        it->second->deleteMemory(it->second);
+    }
+
     it->second->data = data;
     it->second->dataLen = dataLen;
     it->second->syncFun = temporaryFun;
-    
+    it->second->deleteMemory = deleteMemory;
+
     //清空列表
     it->second->deviceList.clear();
     for (std::list<DeviceUnit *>::iterator i = args->deviceUnitList.begin(); i != args->deviceUnitList.end(); i++)
