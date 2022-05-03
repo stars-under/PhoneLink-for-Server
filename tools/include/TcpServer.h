@@ -35,6 +35,7 @@ public:
     int socketSend(void *data, size_t len);
     char *socketRead(size_t *len);
     int socketSendString(char *data, size_t len = NULL);
+    int ReadOK();
     ~socketStream();
 };
 

@@ -315,6 +315,25 @@ int socketStream::socketSendString(char *data, size_t len)
     return this->socketSend(data, len);
 }
 
+int socketStream::ReadOK()
+{
+    size_t len;
+    char *deviceSign = this->socketRead(&len);
+    if (deviceSign == NULL)
+    {
+        messageOut("检查到故障的设备.已离线设备\n");
+        return -1;
+    }
+    if (strncmp(deviceSign, "OK", len) != 0)
+    {
+        this->socketSend(deviceSign, len);
+        errorOut("textSync失败 错误:%s", deviceSign);
+        return -2;
+    }
+    DeleteDataMemory(deviceSign);
+    return 1;
+}
+
 char *socketStream::socketRead(size_t *len)
 {
     TcpServer::DataHead head;
