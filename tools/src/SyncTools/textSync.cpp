@@ -11,10 +11,13 @@ int textSync(PhoneLinkDevice *args, DeviceUnit *device)
     size_t len = 0;
     int scoketSign = 0;
 
-    device->in->socketSendString("OK");
+    FunctionErrorDispose(device->in->socketSendString("OK"), return -1);
 
     size_t textLen;
-    char *text = device->in->socketRead(&textLen);
+
+    char *text;
+    FunctionErrorDispose(text = device->in->socketRead(&textLen),return -1);
+
     if (text == NULL)
     {
         return 0;
@@ -66,14 +69,16 @@ int textSync(PhoneLinkDevice *args, DeviceUnit *device)
         scoketSign = deviceTarget->out->socketSend(text, textLen);
 
         syncSuccessNum++;
+
+        continue;
     }
 
     //数据在暂存区内生命周期还没结束
     // DeleteDataMemory(text);
 
-    device->in->socketSendString("OK");
+    FunctionErrorDispose(device->in->socketSendString("OK"),return -1);
 
-    device->in->socketSend(&syncSuccessNum, sizeof(syncSuccessNum));
+    FunctionErrorDispose(device->in->socketSend(&syncSuccessNum, sizeof(syncSuccessNum)),return -1);
 
     SetTemporaryData(args, device, text, textLen, textTemporaryDataSync, DeleteTemporaryDataMomery);
 
@@ -104,4 +109,3 @@ int textTemporaryDataSync(TemporaryData *args, DeviceUnit *device)
 
     return 1;
 }
-

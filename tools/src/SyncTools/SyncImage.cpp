@@ -35,53 +35,47 @@ char *DirStringMearge(const char *str1, const char *str2)
     return str;
 }
 
-class ImageFile
+int ImageFile::SaveImage(char *keyPath)
 {
-public:
-    char *name;
-    size_t len;
-    char *data;
-    int SaveImage(char *keyPath)
+    char *imagePath = DirStringMearge(Path, keyPath);
+
+    if (access(imagePath, 0) == -1)
     {
-        char *imagePath = DirStringMearge(Path, keyPath);
-
-        if (access(imagePath, 0) == -1)
-        {
-            int error = mkdir(imagePath, 0777);
-            int errors = errno;
-        }
-
-        char *imageFilePath = MeargeCharPointer(imagePath, name);
-        
-        DeleteDataMemory(imagePath);
-
-        FILE *fp = fopen(imageFilePath, "wb");
-
-        DeleteStringMomery(imageFilePath);
-
-        if (fp == NULL)
-        {
-            return -1;
-        }
-
-        fwrite(data, sizeof(char), len, fp);
-
-        fclose(fp);
-
-        return 0;
+        int error = mkdir(imagePath, 0777);
+        int errors = errno;
     }
-    ~ImageFile()
+
+    char *imageFilePath = MeargeCharPointer(imagePath, name);
+
+    DeleteDataMemory(imagePath);
+
+    FILE *fp = fopen(imageFilePath, "wb");
+
+    DeleteStringMomery(imageFilePath);
+
+    if (fp == NULL)
     {
-        if (name != NULL)
-        {
-            DeleteDataMemory(name);
-        }
-        if (data != NULL)
-        {
-            DeleteDataMemory(data);
-        }
+        return -1;
     }
-};
+
+    fwrite(data, sizeof(char), len, fp);
+
+    fclose(fp);
+
+    return 0;
+}
+
+ImageFile::~ImageFile()
+{
+    if (name != NULL)
+    {
+        DeleteDataMemory(name);
+    }
+    if (data != NULL)
+    {
+        DeleteDataMemory(data);
+    }
+}
 
 int SyncImage(PhoneLinkDevice *args, DeviceUnit *device)
 {
@@ -90,18 +84,22 @@ int SyncImage(PhoneLinkDevice *args, DeviceUnit *device)
     ImageFile *image = new ImageFile;
     size_t len = 0;
 
-    image->name = device->in->socketRead(&len);
-    device->in->socketSendString("OK");
-    image->data = device->in->socketRead(&len);
+    FunctionErrorDispose(image->name = device->in->socketRead(&len), return -1);
+
+    FunctionErrorDispose(device->in->socketSendString("OK"), return -1);
+
+    FunctionErrorDispose(image->data = device->in->socketRead(&len), return -1);
+
     image->len = len;
-    device->in->socketSendString("OK");
+
+    FunctionErrorDispose(device->in->socketSendString("OK"), return -1);
 
     image->SaveImage(args->keyString);
-    
+
     int scoketSign;
 
     size_t syncSuccessNum = 0;
-    
+
     for (std::list<DeviceUnit *>::iterator i = args->deviceUnitList.begin(); i != args->deviceUnitList.end(); i++)
     {
         DeviceUnit *deviceTarget = (*i);
@@ -115,54 +113,56 @@ int SyncImage(PhoneLinkDevice *args, DeviceUnit *device)
         scoketSign = deviceTarget->out->socketSendString("SyncImage");
         if (scoketSign <= 0)
         {
-            messageOut("检查到故障的设备.已离线设备\n");
-            args->lock->unlock();
-            deviceTarget->OffLink();
-            args->lock->lock();
-            continue;
+            goto DeviceOff;
         }
-        
-        //校验OK
-        if (deviceTarget->out->ReadOK() <= 0)
+
+        switch (deviceTarget->out->ReadOK())
         {
-            //设备出错,将其离线
-            args->lock->unlock();
-            deviceTarget->OffLink();
-            args->lock->lock();
+        case NO_OK:
+            //未知原因失败
+            continue;
+            break;
+        case DeviceOffLine:
+            //设备离线
+            goto DeviceOff;
+            break;
         }
-        
+
         //发送ImageName
         scoketSign = deviceTarget->out->socketSendString(image->name);
         if (scoketSign <= 0)
         {
-            messageOut("检查到故障的设备.已离线设备\n");
-            args->lock->unlock();
-            deviceTarget->OffLink();
-            args->lock->lock();
-            continue;
+            goto DeviceOff;
         }
 
-        //校验OK
-        if (deviceTarget->out->ReadOK() <= 0)
+        switch (deviceTarget->out->ReadOK())
         {
-            //设备出错,将其离线
-            args->lock->unlock();
-            deviceTarget->OffLink();
-            args->lock->lock();
+        case NO_OK:
+            //未知原因失败
+            continue;
+            break;
+        case DeviceOffLine:
+            //设备离线
+            goto DeviceOff;
+            break;
         }
-        
+
         //发送ImageData
-        scoketSign = deviceTarget->out->socketSend(image->data,image->len);
+        scoketSign = deviceTarget->out->socketSend(image->data, image->len);
         if (scoketSign == NULL)
         {
-            messageOut("检查到故障的设备.已离线设备\n");
-            args->lock->unlock();
-            deviceTarget->OffLink();
-            args->lock->lock();
-            continue;
+            goto DeviceOff;
         }
 
         syncSuccessNum++;
+
+        continue;
+
+    DeviceOff:
+        messageOut("检查到故障的设备.已离线设备\n");
+        args->lock->unlock();
+        deviceTarget->OffLink();
+        args->lock->lock();
     }
 
     return 0;

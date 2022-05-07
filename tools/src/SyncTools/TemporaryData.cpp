@@ -2,6 +2,14 @@
 
 std::map<int32_t, TemporaryData *> temporaryData;
 
+TemporaryData::TemporaryData()
+{
+    this->data = NULL;
+    this->dataLen = NULL;
+    this->syncFun = NULL;
+    this->deleteMemory = NULL;
+}
+
 char *getStringCopy(char *data)
 {
     size_t len = strlen(data);

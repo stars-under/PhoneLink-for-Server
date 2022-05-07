@@ -295,10 +295,15 @@ int socketStream::socketSend(void *data, size_t len)
     TcpServer::DataHead head(len);
     if (send(this->socket, &head, sizeof(TcpServer::DataHead), 0) <= 0)
     {
-        return -1;
+        return 0;
     }
-
-    return send(this->socket, data, len, MSG_NOSIGNAL);
+    
+    if (send(this->socket, data, len, MSG_NOSIGNAL) <= 0)
+    {
+        return 0;
+    }
+    
+    return 1;
 }
 
 int socketStream::socketSendString(char *data, size_t len)
@@ -315,23 +320,22 @@ int socketStream::socketSendString(char *data, size_t len)
     return this->socketSend(data, len);
 }
 
-int socketStream::ReadOK()
+ReadOKStart socketStream::ReadOK()
 {
     size_t len;
     char *deviceSign = this->socketRead(&len);
     if (deviceSign == NULL)
     {
         messageOut("检查到故障的设备.已离线设备\n");
-        return -1;
+        return DeviceOffLine;
     }
     if (strncmp(deviceSign, "OK", len) != 0)
     {
-        this->socketSend(deviceSign, len);
-        errorOut("textSync失败 错误:%s", deviceSign);
-        return -2;
+        errorOut("执行函数失败 错误:%s", deviceSign);
+        return NO_OK;
     }
     DeleteDataMemory(deviceSign);
-    return 1;
+    return OK;
 }
 
 char *socketStream::socketRead(size_t *len)

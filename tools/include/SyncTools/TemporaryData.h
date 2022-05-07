@@ -10,6 +10,7 @@ typedef struct TemporaryData
     int (*syncFun)(struct TemporaryData *, DeviceUnit *);
     int (*deleteMemory)(TemporaryData *);
     std::list<DeviceUnit *> deviceList;
+    TemporaryData();
 } TemporaryData;
 
 //获得一个字符串的副本,请注意释放

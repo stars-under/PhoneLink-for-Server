@@ -21,21 +21,68 @@
 #define errorOut(...) printf(__VA_ARGS__)
 #define messageOut(...) printf(__VA_ARGS__)
 
-#define MAX_DATA_LEN (0x100000)
+#define MAX_DATA_LEN (uint32_t)(0x8000000)
 
-#define DeleteDataMemory(data) \
-    delete[] data;             \
-    data = NULL
+#define FunctionErrorDispose(Code, ErrorCode) \
+    if ((Code) == 0)                          \
+    {                                         \
+        ErrorCode;                            \
+    }
 
+/*
+所以接收的数据应使用该函数释放
+*/
+void inline DeleteDataMemory(char *&data)
+{
+    delete[] data;
+    data = NULL;
+}
+
+//读取设备反馈状态的返回枚举
+enum ReadOKStart
+{
+    DeviceOffLine = 0,
+    NO_OK,
+    OK
+};
+
+//socket数据流类
 class socketStream
 {
 public:
     int socket = NULL;
     socketStream(int socket);
+    /**
+     * @brief 发送一段数据
+     * 
+     * @param data 指向数据的指针
+     * @param len 数据长度
+     * @return int 发送正常返回1,失败返回0
+     */
     int socketSend(void *data, size_t len);
+    /**
+     * @brief 从流中读取一段数据
+     * 
+     * @param len 读取数据的长度
+     * @return char* 成功返回数据指针,失败返回NULL
+     * 
+     * @note 请在数据不使用时调用DeleteDataMemory函数释放
+     */
     char *socketRead(size_t *len);
+    /**
+     * @brief 发送string(char)字符串
+     * 
+     * @param data 指向字符串的指针
+     * @param len 字符串长度,可置为空(自动计算)
+     * @return int 发送正常返回1,失败返回0
+     */
     int socketSendString(char *data, size_t len = NULL);
-    int ReadOK();
+    /**
+     * @brief 检测回发的状态
+     * 
+     * @return ReadOKStart 返回状态
+     */
+    ReadOKStart ReadOK();
     ~socketStream();
 };
 
@@ -63,7 +110,7 @@ public:
     DeviceUnit &operator=(const DeviceUnit &DeviceUnit);
     int operator==(DeviceUnit *unit);
     int operator==(DeviceUnit unit);
-    std::list<DeviceUnit*>::iterator ListLookUpThis(std::list<DeviceUnit*> *list);
+    std::list<DeviceUnit *>::iterator ListLookUpThis(std::list<DeviceUnit *> *list);
     bool OffLink();
     ~DeviceUnit();
 };
@@ -76,7 +123,7 @@ enum StreamDriection
 
 typedef struct PhoneLinkDevice
 {
-    public:
+public:
     std::mutex *lock;
     int32_t key = NULL;
     char keyString[0x09];
