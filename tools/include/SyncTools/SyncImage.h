@@ -15,6 +15,8 @@ public:
 };
 
 int SyncImage(PhoneLinkDevice *args, DeviceUnit *device);
+int ImageTemporary(TemporaryData *data, DeviceUnit *device);
+int ImageDeleteMemory(TemporaryData *args);
 
 
 #endif

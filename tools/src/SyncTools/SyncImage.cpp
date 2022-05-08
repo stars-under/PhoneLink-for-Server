@@ -42,7 +42,7 @@ int ImageFile::SaveImage(char *keyPath)
     if (access(imagePath, 0) == -1)
     {
         int error = mkdir(imagePath, 0777);
-        int errors = errno;
+        int errors = errno; 
     }
 
     char *imageFilePath = MeargeCharPointer(imagePath, name);
@@ -92,13 +92,11 @@ int SyncImage(PhoneLinkDevice *args, DeviceUnit *device)
 
     image->len = len;
 
-    FunctionErrorDispose(device->in->socketSendString("OK"), return -1);
-
     image->SaveImage(args->keyString);
 
     int scoketSign;
 
-    size_t syncSuccessNum = 0;
+    int32_t syncSuccessNum = 0;
 
     for (std::list<DeviceUnit *>::iterator i = args->deviceUnitList.begin(); i != args->deviceUnitList.end(); i++)
     {
@@ -165,5 +163,36 @@ int SyncImage(PhoneLinkDevice *args, DeviceUnit *device)
         args->lock->lock();
     }
 
+    FunctionErrorDispose(device->in->socketSendString("OK"), return -1);
+
+    FunctionErrorDispose(device->in->socketSend(&syncSuccessNum, sizeof(syncSuccessNum)), return -1);
+
+    SetTemporaryData(args, device, image, sizeof(ImageFile), &ImageTemporary, &ImageDeleteMemory);
     return 0;
+}
+
+int ImageTemporary(TemporaryData *data, DeviceUnit *device)
+{
+    ImageFile *image = (ImageFile *)data->data;
+
+    int scoketSign;
+    //发送请求
+    FunctionErrorDispose(device->out->socketSendString("SyncImage"), return -1);
+
+    ReadOKErrorDispose(*device->out, return -1, return -2);
+
+    FunctionErrorDispose(device->out->socketSendString(image->name), return -1);
+
+    ReadOKErrorDispose(*device->out, return -1, return -2);
+
+    FunctionErrorDispose(device->out->socketSend(image->data, image->len), return -1);
+
+    return 1;
+}
+
+int ImageDeleteMemory(TemporaryData *args)
+{
+    delete (ImageFile *)args->data;
+    args->data = NULL;
+    return true;
 }

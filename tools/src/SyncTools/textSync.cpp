@@ -2,7 +2,7 @@
 
 int DeleteTemporaryDataMomery(TemporaryData *args)
 {
-    DeleteDataMemory(args->data);
+    DeleteDataMemory((char *&)args->data);
     return 1;
 }
 

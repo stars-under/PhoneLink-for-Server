@@ -63,7 +63,7 @@ std::list<char *>::iterator lookUpListCharPointer(std::list<char *> *list, char 
     return list->end();
 }
 
-int SetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device, char *data, size_t dataLen, int (*temporaryFun)(TemporaryData *, DeviceUnit *), int (*deleteMemory)(TemporaryData *))
+int SetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device, void *data, size_t dataLen, int (*temporaryFun)(TemporaryData *, DeviceUnit *), int (*deleteMemory)(TemporaryData *))
 {
     std::map<int32_t, TemporaryData *>::iterator it = temporaryData.find(args->key);
     if (it == temporaryData.end())
@@ -88,7 +88,8 @@ int SetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device, char *data, size
     for (std::list<DeviceUnit *>::iterator i = args->deviceUnitList.begin(); i != args->deviceUnitList.end(); i++)
     {
         DeviceUnit *deviceTarget = (*i);
-        if (deviceTarget == device || deviceTarget->OnLineStatus == false)
+        //设备离线时未同步
+        if (deviceTarget->OnLineStatus == false)
         {
             continue;
         }

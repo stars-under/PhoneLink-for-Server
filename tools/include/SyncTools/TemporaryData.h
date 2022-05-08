@@ -5,7 +5,7 @@
 //暂存列队信息
 typedef struct TemporaryData
 {
-    char *data;
+    void *data;
     size_t dataLen;
     int (*syncFun)(struct TemporaryData *, DeviceUnit *);
     int (*deleteMemory)(TemporaryData *);
@@ -28,7 +28,7 @@ int GetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device);
 std::list<char *>::iterator lookUpListCharPointer(std::list<char *> *list, char *str);
 
 //设置当前key的暂存列队
-int SetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device, char *data, size_t dataLen, int (*temporaryFun)(TemporaryData *, DeviceUnit *), int (*deleteMemory)(TemporaryData *));
+int SetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device, void *data, size_t dataLen, int (*temporaryFun)(TemporaryData *, DeviceUnit *), int (*deleteMemory)(TemporaryData *));
 
 //删除当前key的暂存列队
 int deleteTemporaryData(PhoneLinkDevice *args);

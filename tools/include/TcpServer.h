@@ -29,6 +29,16 @@
         ErrorCode;                            \
     }
 
+#define ReadOKErrorDispose(device, OffCode, ErrorCode) \
+    switch ((device).ReadOK())                           \
+    {                                                  \
+    case DeviceOffLine:                                \
+        OffCode;                                       \
+        break;                                         \
+    case NO_OK:                                        \
+        ErrorCode;                                     \
+        break;                                         \
+    }
 /*
 所以接收的数据应使用该函数释放
 */
@@ -46,7 +56,7 @@ enum ReadOKStart
     OK
 };
 
-//socket数据流类
+// socket数据流类
 class socketStream
 {
 public:
@@ -54,7 +64,7 @@ public:
     socketStream(int socket);
     /**
      * @brief 发送一段数据
-     * 
+     *
      * @param data 指向数据的指针
      * @param len 数据长度
      * @return int 发送正常返回1,失败返回0
@@ -62,16 +72,16 @@ public:
     int socketSend(void *data, size_t len);
     /**
      * @brief 从流中读取一段数据
-     * 
+     *
      * @param len 读取数据的长度
      * @return char* 成功返回数据指针,失败返回NULL
-     * 
+     *
      * @note 请在数据不使用时调用DeleteDataMemory函数释放
      */
     char *socketRead(size_t *len);
     /**
      * @brief 发送string(char)字符串
-     * 
+     *
      * @param data 指向字符串的指针
      * @param len 字符串长度,可置为空(自动计算)
      * @return int 发送正常返回1,失败返回0
@@ -79,7 +89,7 @@ public:
     int socketSendString(char *data, size_t len = NULL);
     /**
      * @brief 检测回发的状态
-     * 
+     *
      * @return ReadOKStart 返回状态
      */
     ReadOKStart ReadOK();

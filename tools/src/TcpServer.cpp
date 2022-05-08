@@ -297,12 +297,19 @@ int socketStream::socketSend(void *data, size_t len)
     {
         return 0;
     }
-    
-    if (send(this->socket, data, len, MSG_NOSIGNAL) <= 0)
+
+    size_t sendLen = 0;
+    while (len != 0)
     {
-        return 0;
+        sendLen = send(this->socket, (char*)data, len, MSG_NOSIGNAL);
+        if (sendLen <= 0)
+        {
+            return 0;
+        }
+        data = (char*)data + sendLen;
+        len -= sendLen;
     }
-    
+
     return 1;
 }
 
