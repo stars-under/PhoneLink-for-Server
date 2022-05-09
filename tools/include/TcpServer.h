@@ -102,7 +102,7 @@ public:
     char *ip = NULL;
     char *gatewayIp = NULL;
     char *gaetwayMac = NULL;
-    DeviceInformation(/* args */);
+    DeviceInformation();
     ~DeviceInformation();
 };
 
@@ -114,6 +114,10 @@ public:
     size_t nameLen = NULL;
     socketStream *in = NULL;
     socketStream *out = NULL;
+    /**
+     * @brief 设备信息模块还未完成
+     * 
+     */
     DeviceInformation *information = NULL;
     DeviceUnit(char *name);
     DeviceUnit(DeviceUnit &device);
@@ -150,8 +154,8 @@ class TcpServer
 {
 private:
     unsigned int port;
+    //socket 套接字
     int socketData;
-    int serverState;
     int (*serverFun)(PhoneLinkDevice *, DeviceUnit *);
 
     typedef struct ServerFrame

@@ -4,6 +4,8 @@ std::list<PhoneLinkDevice> deviceList;
 
 TcpServer::TcpServer(unsigned int port, int (*Fun)(PhoneLinkDevice *, DeviceUnit *))
 {
+    int serverState;
+    
     memset(&this->socketConfigure, NULL, sizeof(this->socketConfigure));
     this->socketConfigure.sin_family = AF_INET;
     this->socketConfigure.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -54,26 +56,26 @@ TcpServer::TcpServer(unsigned int port, int (*Fun)(PhoneLinkDevice *, DeviceUnit
         return;
     }
 
-    this->serverState = bind(this->socketData, (struct sockaddr *)&this->socketConfigure, sizeof(this->socketConfigure));
-    if (this->serverState < 0)
+    serverState = bind(this->socketData, (struct sockaddr *)&this->socketConfigure, sizeof(this->socketConfigure));
+    if (serverState < 0)
     {
-        errorOut("绑定端口失败,错误码:%d\n", this->serverState);
+        errorOut("绑定端口失败,错误码:%d\n", serverState);
         errorOut("error is %d", errno);
         return;
     }
 
-    this->serverState = listen(this->socketData, 10);
-    if (this->serverState < 0)
+    serverState = listen(this->socketData, 10);
+    if (serverState < 0)
     {
-        errorOut("设置列队失败,错误码:%d", this->serverState);
+        errorOut("设置列队失败,错误码:%d", serverState);
         return;
     }
 
     messageOut("任务创建成功");
 
-    this->serverFun = Fun;
+    serverFun = Fun;
 
-    this->threadLocal = new std::thread(serverThread, this);
+    threadLocal = new std::thread(serverThread, this);
 
     return;
 }
