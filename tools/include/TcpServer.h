@@ -30,7 +30,7 @@
     }
 
 #define ReadOKErrorDispose(device, OffCode, ErrorCode) \
-    switch ((device).ReadOK())                           \
+    switch ((device).ReadOK())                         \
     {                                                  \
     case DeviceOffLine:                                \
         OffCode;                                       \
@@ -116,7 +116,7 @@ public:
     socketStream *out = NULL;
     /**
      * @brief 设备信息模块还未完成
-     * 
+     *
      */
     DeviceInformation *information = NULL;
     DeviceUnit(char *name);
@@ -124,7 +124,18 @@ public:
     DeviceUnit &operator=(const DeviceUnit &DeviceUnit);
     int operator==(DeviceUnit *unit);
     int operator==(DeviceUnit unit);
+    /**
+     * @brief 查找list中是否存在this
+     *
+     * @param list 被存在的list'表
+     * @return std::list<DeviceUnit *>::iterator
+     */
     std::list<DeviceUnit *>::iterator ListLookUpThis(std::list<DeviceUnit *> *list);
+    /**
+     * @brief 将该设备离线
+     *
+     * @return 返回设备状(离线成功为false)
+     */
     bool OffLink();
     ~DeviceUnit();
 };
@@ -147,6 +158,12 @@ public:
     int operator==(PhoneLinkDevice device);
     DeviceUnit *lookUpDevice(DeviceUnit *unit);
     DeviceUnit *addDevice(DeviceUnit *unit);
+    /**
+     * @brief 销毁一个设备
+     *
+     * @param unit 被删除的设备
+     * @return int 返回0
+     */
     int deleteDevice(DeviceUnit *unit);
 } PhoneLinkDevice;
 
@@ -154,7 +171,7 @@ class TcpServer
 {
 private:
     unsigned int port;
-    //socket 套接字
+    // socket 套接字
     int socketData;
     int (*serverFun)(PhoneLinkDevice *, DeviceUnit *);
 
@@ -173,13 +190,13 @@ private:
             struct DataKey head;
             //校验头部数据
             int CheckFrame();
-        } Data;
+        } data;
 
-        struct
+        struct ThreadType
         {
             std::list<std::thread *> *threadLocalVector;
             std::thread *thisThread;
-        };
+        } thread;
 
         static void serverUnit(TcpServer::ServerFrame *);
     } ServerFrame;

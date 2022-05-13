@@ -73,9 +73,9 @@ TcpServer::TcpServer(unsigned int port, int (*Fun)(PhoneLinkDevice *, DeviceUnit
 
     messageOut("任务创建成功");
 
-    serverFun = Fun;
+    this->serverFun = Fun;
 
-    threadLocal = new std::thread(serverThread, this);
+    this->threadLocal = new std::thread(serverThread, this);
 
     return;
 }
@@ -89,16 +89,16 @@ void TcpServer::ServerFrame::serverUnit(TcpServer::ServerFrame *data)
     do
     {
 
-        memset(&data->Data, NULL, sizeof(data->Data));
+        memset(&data->data, NULL, sizeof(data->data));
         // memset(&buff,NULL,sizeof(buff));
         //将Data本身作为一个对象接收数据
-        if (recv(data->socket, &data->Data, (sizeof(TcpServer::ServerFrame::DataType::DataKey)), MSG_WAITALL) != sizeof(TcpServer::ServerFrame::DataType::DataKey))
+        if (recv(data->socket, &data->data, (sizeof(TcpServer::ServerFrame::DataType::DataKey)), MSG_WAITALL) != sizeof(TcpServer::ServerFrame::DataType::DataKey))
         {
             errorOut("握手包接收错误");
             goto GOTO_EXIT;
         }
 
-        if (data->Data.CheckFrame() == false)
+        if (data->data.CheckFrame() == false)
         {
             errorOut("Key检验失败");
             goto GOTO_EXIT;
@@ -114,7 +114,7 @@ void TcpServer::ServerFrame::serverUnit(TcpServer::ServerFrame *data)
             goto GOTO_EXIT;
         }
 
-        PhoneLinkDevice device(data->Data.head.key);
+        PhoneLinkDevice device(data->data.head.key);
         //查找链表中有无该key
         std::list<PhoneLinkDevice>::iterator it = std::find(deviceList.begin(), deviceList.end(), device);
 
@@ -151,7 +151,7 @@ void TcpServer::ServerFrame::serverUnit(TcpServer::ServerFrame *data)
             if (deviceUnitTarget->OnLineStatus == false)
             {
                 //不存在In端口不允许Out端口连接
-                if (data->Data.head.streamDriection == OUT)
+                if (data->data.head.streamDriection == OUT)
                 {
                     stream->socketSendString("不存在的IN端口");
                     errorOut("不存在IN端口的OUT端口连接\n");
@@ -165,7 +165,7 @@ void TcpServer::ServerFrame::serverUnit(TcpServer::ServerFrame *data)
             else
             {
                 //设备在线着检查是否为IN端口
-                if (data->Data.head.streamDriection == IN)
+                if (data->data.head.streamDriection == IN)
                 {
                     //离线原设备
                     deviceUnitTarget->OffLink();
@@ -177,7 +177,7 @@ void TcpServer::ServerFrame::serverUnit(TcpServer::ServerFrame *data)
         else
         {
             //不存在In端口不允许Out端口连接
-            if (data->Data.head.streamDriection == OUT)
+            if (data->data.head.streamDriection == OUT)
             {
                 stream->socketSendString("不存在的IN端口");
                 errorOut("不存在IN端口的OUT端口连接\n");
@@ -191,10 +191,10 @@ void TcpServer::ServerFrame::serverUnit(TcpServer::ServerFrame *data)
 
         stream->socketSendString("OK");
 
-        *((data->Data.head.streamDriection == IN) ? (&deviceUnitTarget->in) : (&deviceUnitTarget->out)) = stream;
+        *((data->data.head.streamDriection == IN) ? (&deviceUnitTarget->in) : (&deviceUnitTarget->out)) = stream;
 
         //端口为OUT时对socket做超时设置
-        if (data->Data.head.streamDriection == OUT)
+        if (data->data.head.streamDriection == OUT)
         {
             struct timeval timeout = {3, 0}; // 3s
             if (setsockopt(stream->socket, SOL_SOCKET, SO_SNDTIMEO, (const char *)&timeout, sizeof(timeout)) < 0)
@@ -210,14 +210,14 @@ void TcpServer::ServerFrame::serverUnit(TcpServer::ServerFrame *data)
             }
         }
 
-        (data->Data.head.streamDriection == IN) ? (data->serverIn(&*it, deviceUnitTarget)) : (NULL);
+        (data->data.head.streamDriection == IN) ? (data->serverIn(&*it, deviceUnitTarget)) : (NULL);
 
     } while (false);
 GOTO_EXIT:
     uint32_t overTime = 0;
     //销毁socket的任务被socketStream类接管了
     // close(data->socket);
-    while (data->thisThread == NULL)
+    while (data->thread.thisThread == NULL)
     {
         sleep(1);
         if (++overTime >= 100)
@@ -228,7 +228,7 @@ GOTO_EXIT:
         }
     }
     //从<Lits>中删除自身
-    data->threadLocalVector->remove(data->thisThread);
+    data->thread.threadLocalVector->remove(data->thread.thisThread);
     //销毁本地对象
     delete data;
     return;
@@ -248,12 +248,12 @@ void TcpServer::serverThread(TcpServer *data)
 
         ServerFrame *frameThread = new ServerFrame();
         frameThread->socket = newSocket;
-        frameThread->threadLocalVector = &data->threadUnitList;
+        frameThread->thread.threadLocalVector = &data->threadUnitList;
         frameThread->serverIn = data->serverFun;
 
         std::thread *t = new std::thread(ServerFrame::serverUnit, frameThread);
         data->threadUnitList.push_front(t);
-        frameThread->thisThread = t;
+        frameThread->thread.thisThread = t;
     }
 }
 

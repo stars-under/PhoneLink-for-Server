@@ -3,6 +3,7 @@ LD = g++
 SRCS = $(wildcard *.cpp tools/src/*.cpp tools/src/*/*.cpp)
 OBJS = $(patsubst %cpp, $(BUILD)/%o, $(SRCS))
 RELY_ON = $(patsubst %cpp, $(BUILD)/%d, $(SRCS))
+STD = -std=c++14
 DEFINE = -D SOCKET_PORT=2564 -D SAVE_FILE_PATH=\"file\"
 # -I指定头文件目录
 INCLUDE = -I./tools/include -I./tools/include/SyncTools
@@ -32,7 +33,7 @@ $(BUILD)/%.d:%.cpp
 # 编译时候指定头文件目录
 include $(RELY_ON)
 $(BUILD)/%.o:%.cpp
-	$(CC) -c $< -o $@ $(INCLUDE) $(CFLAGS) $(CWARNIG) $(DEFINE)
+	$(CC) -c $< -o $@ $(STD) $(INCLUDE) $(CFLAGS) $(CWARNIG) $(DEFINE)
 
 clean:
 	rm -f $(OBJS) $(RELY_ON) $(TARGET)
