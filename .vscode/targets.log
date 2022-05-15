@@ -13,49 +13,30 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
  
 
  
-# Make data base, printed on Sat May 14 12:05:47 2022
+# Make data base, printed on Sun May 15 10:09:18 2022
  
 
 # Variables
  
 
- 
 # automatic
- 
 <D = $(patsubst %/,%,$(dir $<))
- 
 # automatic
- 
 ?F = $(notdir $?)
- 
 # default
- 
 .SHELLFLAGS := -c
- 
 # environment
- 
 XDG_SESSION_CLASS = user
- 
 # environment
- 
 VSCODE_AGENT_FOLDER = /home/ubuntu/.vscode-server
- 
 # environment
- 
 XDG_SESSION_TYPE = tty
- 
 # environment
- 
 VSCODE_LOG_NATIVE = false
- 
 # makefile (from 'makefile', line 21)
- 
 TARGET = PhoneLink
- 
 # automatic
- 
 ?D = $(patsubst %/,%,$(dir $?))
- 
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # automatic
@@ -67,9 +48,9 @@ CURDIR := /home/ubuntu/PhoneLink
 # makefile
 SHELL = /bin/sh
 # environment
-VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"42e84e0914b17800d483f69e299e1b00.zh-cn","_translationsConfigFile":"/home/ubuntu/.vscode-server/data/clp/42e84e0914b17800d483f69e299e1b00.zh-cn/tcf.json","_cacheRoot":"/home/ubuntu/.vscode-server/data/clp/42e84e0914b17800d483f69e299e1b00.zh-cn","_resolvedLanguagePackCoreLocation":"/home/ubuntu/.vscode-server/data/clp/42e84e0914b17800d483f69e299e1b00.zh-cn/57fd6d0195bb9b9d1b49f6da5db789060795de47","_corruptedFile":"/home/ubuntu/.vscode-server/data/clp/42e84e0914b17800d483f69e299e1b00.zh-cn/corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"42e84e0914b17800d483f69e299e1b00.zh-cn","_translationsConfigFile":"/home/ubuntu/.vscode-server/data/clp/42e84e0914b17800d483f69e299e1b00.zh-cn/tcf.json","_cacheRoot":"/home/ubuntu/.vscode-server/data/clp/42e84e0914b17800d483f69e299e1b00.zh-cn","_resolvedLanguagePackCoreLocation":"/home/ubuntu/.vscode-server/data/clp/42e84e0914b17800d483f69e299e1b00.zh-cn/da15b6fd3ef856477bf6f4fb29ba1b7af717770d","_corruptedFile":"/home/ubuntu/.vscode-server/data/clp/42e84e0914b17800d483f69e299e1b00.zh-cn/corrupted.info","_languagePackSupport":true}
 # environment
-_ = /home/ubuntu/.vscode-server/bin/57fd6d0195bb9b9d1b49f6da5db789060795de47/node
+_ = /home/ubuntu/.vscode-server/bin/da15b6fd3ef856477bf6f4fb29ba1b7af717770d/node
 # makefile (from 'makefile', line 13)
 CFLAGS = -O0 -g3
 # makefile (from 'build/tools/src/SyncTools/textSync.d', line 1)
@@ -93,9 +74,9 @@ LC_NAME = C.UTF-8
 # environment
 VSCODE_CWD = /home/ubuntu
 # environment
-SSH_CONNECTION = 113.98.235.211 6133 10.9.118.168 22
+SSH_CONNECTION = 113.98.235.211 8646 10.9.118.168 22
 # environment
-PATH = /home/ubuntu/.vscode-server/bin/57fd6d0195bb9b9d1b49f6da5db789060795de47/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+PATH = /home/ubuntu/.vscode-server/bin/da15b6fd3ef856477bf6f4fb29ba1b7af717770d/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 # makefile (from 'makefile', line 2)
 LD = g++
 # environment
@@ -105,7 +86,7 @@ VSCODE_LOG_STACK = false
 # environment
 LC_NUMERIC = C.UTF-8
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-2ff2d056-8859-46c4-8e90-0b872ea86e3b.sock
+VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-9cbb2adc-be9e-44b8-bb59-6e5dbd6e7ca5.sock
 # makefile (from 'makefile', line 11)
 LIB = -L./tools/scr -lpthread
 # default
@@ -153,7 +134,7 @@ SHLVL = 0
 # makefile (from 'makefile', line 1)
 CC = g++
 # environment
-XDG_SESSION_ID = 523
+XDG_SESSION_ID = 626
 # environment
 USER = ubuntu
 # environment
@@ -183,11 +164,11 @@ MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_CLIENT = 113.98.235.211 6133 22
+SSH_CLIENT = 113.98.235.211 8646 22
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
-BROWSER = /home/ubuntu/.vscode-server/bin/57fd6d0195bb9b9d1b49f6da5db789060795de47/bin/helpers/browser.sh
+BROWSER = /home/ubuntu/.vscode-server/bin/da15b6fd3ef856477bf6f4fb29ba1b7af717770d/bin/helpers/browser.sh
 # environment
 VSCODE_HANDLES_SIGPIPE = true
 # default
@@ -211,7 +192,7 @@ SUFFIXES :=
 # environment
 LC_IDENTIFICATION = C.UTF-8
 # makefile (from 'makefile', line 7)
-DEFINE = -D SOCKET_PORT=2564 -D SAVE_FILE_PATH=\"file\"
+DEFINE = -D SOCKET_PORT=2564 -D SAVE_FILE_PATH=file
 # default
 .RECIPEPREFIX := 
 # environment
@@ -227,7 +208,7 @@ MOTD_SHOWN = pam
 # makefile (from 'makefile', line 17)
 CWARNIG = -Wno-conversion-null -Wno-write-strings -Wno-pointer-arith -Wno-format-security
 # variable set hash-table stats:
-# Load=94/1024=9%, Rehash=0, Collisions=17/150=11%
+# Load=94/1024=9%, Rehash=0, Collisions=16/141=11%
 
 # Pattern-specific Variable Values
 
@@ -236,7 +217,6 @@ CWARNIG = -Wno-conversion-null -Wno-write-strings -Wno-pointer-arith -Wno-format
 # Directories
 
 # tools/src/SyncTools (device 64514, inode 1181219): 5 files, no impossibilities.
- 
 # tools/src/TcpServer.cpp (device 64514, inode 1181199): could not be opened.
 # . (device 64514, inode 1182229): 16 files, no impossibilities.
 # tools/src (device 64514, inode 1182250): 5 files, no impossibilities.
@@ -265,11 +245,14 @@ tools/include/SyncTools/textSync.h:
 #  File has been updated.
 #  Successfully updated.
 
-# Not a target:
-build/tools/src/SyncTools/TemporaryData.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+build/tools/src/SyncTools/TemporaryData.o: tools/src/SyncTools/TemporaryData.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'tools/src/SyncTools/TemporaryData'
+#  Last modified 2022-05-15 10:09:10.317754255
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 36):
+	$(CC) -c $< -o $@ $(STD) $(INCLUDE) $(CFLAGS) $(CWARNIG) $(DEFINE)
 
 # Not a target:
 tools/include/SyncTools/SyncImage.h:
@@ -281,7 +264,7 @@ tools/include/SyncTools/SyncImage.h:
 build/tools/src/SyncServer.d: tools/src/SyncServer.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'tools/src/SyncServer'
-#  Last modified 2022-05-14 12:05:46.86770077
+#  Last modified 2022-05-15 10:09:07.793633703
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 31):
@@ -295,27 +278,9 @@ build/SyncServer.o: tools/src/SyncServer.cpp tools/include/SyncServer.h tools/in
 build/main.o: main.cpp main.cpp tools/include/TcpServer.h tools/include/SyncTools/textSync.h tools/include/SyncServer.h tools/include/TcpServer.h tools/include/SyncTools/TemporaryData.h tools/include/SyncTools/TemporaryData.h tools/include/SyncTools/SyncImage.h
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'main'
-#  Last modified 2022-05-13 18:23:31.966153174
+#  Last modified 2022-05-15 10:09:08.401662792
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := build/main.o
-# automatic
-# % := 
-# automatic
-# * := main
-# automatic
-# + := main.cpp main.cpp tools/include/TcpServer.h tools/include/SyncTools/textSync.h tools/include/SyncServer.h tools/include/TcpServer.h tools/include/SyncTools/TemporaryData.h tools/include/SyncTools/TemporaryData.h tools/include/SyncTools/SyncImage.h
-# automatic
-# | := 
-# automatic
-# < := main.cpp
-# automatic
-# ^ := main.cpp tools/include/TcpServer.h tools/include/SyncTools/textSync.h tools/include/SyncServer.h tools/include/SyncTools/TemporaryData.h tools/include/SyncTools/SyncImage.h
-# automatic
-# ? := tools/include/TcpServer.h tools/include/SyncTools/SyncImage.h
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=4/19=21%
+#  Successfully updated.
 #  recipe to execute (from 'makefile', line 36):
 	$(CC) -c $< -o $@ $(STD) $(INCLUDE) $(CFLAGS) $(CWARNIG) $(DEFINE)
 
@@ -329,12 +294,13 @@ tools/src/SyncTools/textSync.cpp:
 all: PhoneLink
 #  Phony target (prerequisite of .PHONY).
 #  Command line target.
+ 
 #  Implicit rule search has not been done.
+ 
 #  File does not exist.
+ 
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/9=0%
+#  Successfully updated.
 
 build/textSync.o: tools/src/SyncTools/textSync.cpp tools/include/SyncTools/textSync.h tools/include/SyncServer.h tools/include/TcpServer.h tools/include/SyncTools/TemporaryData.h tools/include/TcpServer.h
 #  Implicit rule search has not been done.
@@ -344,7 +310,7 @@ build/textSync.o: tools/src/SyncTools/textSync.cpp tools/include/SyncTools/textS
 # Not a target:
 tools/src/SyncTools/SyncImage.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-09 08:44:44.44460651
+#  Last modified 2022-05-15 10:08:25.071503964
 #  File has been updated.
 #  Successfully updated.
 
@@ -358,16 +324,19 @@ build/SyncImage.o: tools/src/SyncTools/SyncImage.cpp tools/include/SyncTools/Syn
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-build/tools/src/TcpServer.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+build/tools/src/TcpServer.o: tools/src/TcpServer.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'tools/src/TcpServer'
+#  Last modified 2022-05-15 10:09:09.177699879
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 36):
+	$(CC) -c $< -o $@ $(STD) $(INCLUDE) $(CFLAGS) $(CWARNIG) $(DEFINE)
 
 build/tools/src/SyncTools/textSync.d: tools/src/SyncTools/textSync.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'tools/src/SyncTools/textSync'
-#  Last modified 2022-05-14 12:05:46.719701773
+#  Last modified 2022-05-15 10:09:07.645626613
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 31):
@@ -376,22 +345,25 @@ build/tools/src/SyncTools/textSync.d: tools/src/SyncTools/textSync.cpp
 build/tools/src/SyncTools/SyncImage.d: tools/src/SyncTools/SyncImage.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'tools/src/SyncTools/SyncImage'
-#  Last modified 2022-05-14 12:05:46.775701394
+#  Last modified 2022-05-15 10:09:07.693628913
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 31):
 	echo -n "$(BUILD)/" > $@ & $(CC) -MM $^ $(INCLUDE) >> $@
 
-# Not a target:
-build/tools/src/SyncServer.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+build/tools/src/SyncServer.o: tools/src/SyncServer.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'tools/src/SyncServer'
+#  Last modified 2022-05-15 10:09:09.641722022
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 36):
+	$(CC) -c $< -o $@ $(STD) $(INCLUDE) $(CFLAGS) $(CWARNIG) $(DEFINE)
 
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-13 18:23:31.982153226
+#  Last modified 2022-05-15 10:09:03.137409813
 #  File has been updated.
 #  Successfully updated.
 
@@ -402,11 +374,14 @@ main.cpp:
 #  File has been updated.
 #  Successfully updated.
 
-# Not a target:
-build/tools/src/SyncTools/textSync.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+build/tools/src/SyncTools/textSync.o: tools/src/SyncTools/textSync.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'tools/src/SyncTools/textSync'
+#  Last modified 2022-05-15 10:09:11.381804902
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 36):
+	$(CC) -c $< -o $@ $(STD) $(INCLUDE) $(CFLAGS) $(CWARNIG) $(DEFINE)
 
 # Not a target:
 tools/include/SyncTools/TemporaryData.h:
@@ -417,19 +392,20 @@ tools/include/SyncTools/TemporaryData.h:
 
 PhoneLink: build/main.o build/tools/src/TcpServer.o build/tools/src/SyncServer.o build/tools/src/SyncTools/TemporaryData.o build/tools/src/SyncTools/SyncImage.o build/tools/src/SyncTools/textSync.o
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 18:23:31.966153174
+#  Last modified 2022-05-15 10:09:11.485809847
 #  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/9=0%
+#  Successfully updated.
 #  recipe to execute (from 'makefile', line 28):
 	$(LD) -o $@ $^ $(LIB)
 
-# Not a target:
-build/tools/src/SyncTools/SyncImage.o:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+build/tools/src/SyncTools/SyncImage.o: tools/src/SyncTools/SyncImage.cpp
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'tools/src/SyncTools/SyncImage'
+#  Last modified 2022-05-15 10:09:10.81377788
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'makefile', line 36):
+	$(CC) -c $< -o $@ $(STD) $(INCLUDE) $(CFLAGS) $(CWARNIG) $(DEFINE)
 
 # Not a target:
 .DEFAULT:
@@ -467,7 +443,7 @@ tools/include/TcpServer.h:
 build/tools/src/SyncTools/TemporaryData.d: tools/src/SyncTools/TemporaryData.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'tools/src/SyncTools/TemporaryData'
-#  Last modified 2022-05-14 12:05:46.819701096
+#  Last modified 2022-05-15 10:09:07.741631212
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 31):
@@ -476,7 +452,7 @@ build/tools/src/SyncTools/TemporaryData.d: tools/src/SyncTools/TemporaryData.cpp
 build/main.d: main.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'main'
-#  Last modified 2022-05-14 12:05:47.043699577
+#  Last modified 2022-05-15 10:09:07.88563811
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 31):
@@ -485,7 +461,7 @@ build/main.d: main.cpp
 # Not a target:
 tools/src/TcpServer.cpp:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-14 12:00:39.410167536
+#  Last modified 2022-05-15 09:35:07.235349845
 #  File has been updated.
 #  Successfully updated.
 
@@ -499,7 +475,7 @@ tools/include/SyncServer.h:
 build/tools/src/TcpServer.d: tools/src/TcpServer.cpp
 #  Implicit rule search has been done.
 #  Implicit/static pattern stem: 'tools/src/TcpServer'
-#  Last modified 2022-05-14 12:05:46.927700364
+#  Last modified 2022-05-15 10:09:07.841636002
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'makefile', line 31):
@@ -512,14 +488,13 @@ build/TcpServer.o: tools/src/TcpServer.cpp tools/include/TcpServer.h
 
 # Not a target:
 tools/src/SyncServer.cpp:
- 
 #  Implicit rule search has been done.
 #  Last modified 2022-04-25 15:10:14.30717444
 #  File has been updated.
 #  Successfully updated.
 
 # files hash-table stats:
-# Load=35/1024=3%, Rehash=0, Collisions=0/110=0%
+# Load=35/1024=3%, Rehash=0, Collisions=0/125=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
@@ -529,9 +504,9 @@ tools/src/SyncServer.cpp:
 # strcache buffers: 1 (0) / strings = 67 / storage = 1259 B / avg = 18 B
 # current buf: size = 8162 B / used = 1259 B / count = 67 / avg = 18 B
 
-# strcache performance: lookups = 131 / hit rate = 48%
+# strcache performance: lookups = 146 / hit rate = 54%
 # hash-table stats:
-# Load=67/8192=1%, Rehash=0, Collisions=3/131=2%
-# Finished Make data base on Sat May 14 12:05:47 2022
+# Load=67/8192=1%, Rehash=0, Collisions=3/146=2%
+# Finished Make data base on Sun May 15 10:09:18 2022
 
  

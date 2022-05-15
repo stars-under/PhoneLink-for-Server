@@ -4,7 +4,11 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-const char Path[] = SAVE_FILE_PATH;
+#define ToStringUnit(str) #str
+
+#define ToString(str) ToStringUnit(str)
+
+const char Path[] = ToString(SAVE_FILE_PATH);
 
 #define DeleteStringMomery(momery) delete[] momery
 

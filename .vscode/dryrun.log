@@ -1,28 +1,7 @@
-make --dry-run --always-make --keep-going --print-directory
+make --dry-run --keep-going --print-directory
 make: Entering directory '/home/ubuntu/PhoneLink'
-echo -n "build/" > build/tools/src/SyncTools/textSync.d & g++ -MM tools/src/SyncTools/textSync.cpp -I./tools/include -I./tools/include/SyncTools >> build/tools/src/SyncTools/textSync.d
  
-echo -n "build/" > build/tools/src/SyncTools/SyncImage.d & g++ -MM tools/src/SyncTools/SyncImage.cpp -I./tools/include -I./tools/include/SyncTools >> build/tools/src/SyncTools/SyncImage.d
+make: Nothing to be done for 'all'.
  
-echo -n "build/" > build/tools/src/SyncTools/TemporaryData.d & g++ -MM tools/src/SyncTools/TemporaryData.cpp -I./tools/include -I./tools/include/SyncTools >> build/tools/src/SyncTools/TemporaryData.d
- 
-echo -n "build/" > build/tools/src/SyncServer.d & g++ -MM tools/src/SyncServer.cpp -I./tools/include -I./tools/include/SyncTools >> build/tools/src/SyncServer.d
- 
-echo -n "build/" > build/tools/src/TcpServer.d & g++ -MM tools/src/TcpServer.cpp -I./tools/include -I./tools/include/SyncTools >> build/tools/src/TcpServer.d
- 
-echo -n "build/" > build/main.d & g++ -MM main.cpp -I./tools/include -I./tools/include/SyncTools >> build/main.d
- 
-g++ -c main.cpp -o build/main.o -std=c++14 -I./tools/include -I./tools/include/SyncTools -O0 -g3 -Wno-conversion-null -Wno-write-strings -Wno-pointer-arith -Wno-format-security -D SOCKET_PORT=2564 -D SAVE_FILE_PATH=\"file\"
- 
-g++ -c tools/src/TcpServer.cpp -o build/tools/src/TcpServer.o -std=c++14 -I./tools/include -I./tools/include/SyncTools -O0 -g3 -Wno-conversion-null -Wno-write-strings -Wno-pointer-arith -Wno-format-security -D SOCKET_PORT=2564 -D SAVE_FILE_PATH=\"file\"
- 
-g++ -c tools/src/SyncServer.cpp -o build/tools/src/SyncServer.o -std=c++14 -I./tools/include -I./tools/include/SyncTools -O0 -g3 -Wno-conversion-null -Wno-write-strings -Wno-pointer-arith -Wno-format-security -D SOCKET_PORT=2564 -D SAVE_FILE_PATH=\"file\"
- 
-g++ -c tools/src/SyncTools/TemporaryData.cpp -o build/tools/src/SyncTools/TemporaryData.o -std=c++14 -I./tools/include -I./tools/include/SyncTools -O0 -g3 -Wno-conversion-null -Wno-write-strings -Wno-pointer-arith -Wno-format-security -D SOCKET_PORT=2564 -D SAVE_FILE_PATH=\"file\"
- 
-g++ -c tools/src/SyncTools/SyncImage.cpp -o build/tools/src/SyncTools/SyncImage.o -std=c++14 -I./tools/include -I./tools/include/SyncTools -O0 -g3 -Wno-conversion-null -Wno-write-strings -Wno-pointer-arith -Wno-format-security -D SOCKET_PORT=2564 -D SAVE_FILE_PATH=\"file\"
- 
-g++ -c tools/src/SyncTools/textSync.cpp -o build/tools/src/SyncTools/textSync.o -std=c++14 -I./tools/include -I./tools/include/SyncTools -O0 -g3 -Wno-conversion-null -Wno-write-strings -Wno-pointer-arith -Wno-format-security -D SOCKET_PORT=2564 -D SAVE_FILE_PATH=\"file\"
-g++ -o PhoneLink build/main.o build/tools/src/TcpServer.o build/tools/src/SyncServer.o build/tools/src/SyncTools/TemporaryData.o build/tools/src/SyncTools/SyncImage.o build/tools/src/SyncTools/textSync.o -L./tools/scr -lpthread
 make: Leaving directory '/home/ubuntu/PhoneLink'
  

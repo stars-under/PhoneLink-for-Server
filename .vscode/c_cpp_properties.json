@@ -8,8 +8,7 @@
                 "${workspaceFolder}/tools/include"
             ],
             "defines": [
-                "SOCKET_PORT = 2654",
-                "SAVE_FILE_PATH = \"file\""
+                "SOCKET_PORT = 2654"
             ],
             "compilerPath": "/usr/bin/g++",
             "cStandard": "c11",
@@ -23,7 +22,8 @@
                     "${workspaceFolder}/tools/include/**"
                 ],
                 "limitSymbolsToIncludedHeaders": true
-            }
+            },
+            "configurationProvider": "ms-vscode.makefile-tools"
         },
         {
             "name": "Linux C++",
