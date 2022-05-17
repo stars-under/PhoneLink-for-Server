@@ -4,7 +4,7 @@ SRCS = $(wildcard *.cpp tools/src/*.cpp tools/src/*/*.cpp)
 OBJS = $(patsubst %cpp, $(BUILD)/%o, $(SRCS))
 RELY_ON = $(patsubst %cpp, $(BUILD)/%d, $(SRCS))
 STD = -std=c++14
-DEFINE = -D SOCKET_PORT=2564 -D SAVE_FILE_PATH=/#file
+DEFINE = -D SOCKET_PORT=2564 -D SAVE_FILE_PATH=file
 # -I指定头文件目录
 INCLUDE = -I./tools/include -I./tools/include/SyncTools
 # -L指定库文件目录，-l指定静态库名字(去掉文件名中的lib前缀和.a后缀)
@@ -18,7 +18,13 @@ CWARNIG = -Wno-conversion-null -Wno-write-strings -Wno-pointer-arith -Wno-format
 
 BUILD = resele
 
-TARGET = PhoneLink
+TARGET = PhoneLinkResele
+
+BUILD_DRI = $(subst .,./$(BUILD),$(shell find ./* -type d))
+
+empty:=
+
+space:=$(empty) #
 
 .PHONY:all clean
 
@@ -28,13 +34,13 @@ $(TARGET): $(OBJS)
 	$(LD) -o $@ $^ $(LIB)
 
 $(BUILD)/%.d:%.cpp
+	$(shell if [ ! -d $(subst $(space),/,$(filter-out %.d,$(subst /, ,$@))) ];then mkdir -p $(subst $(space),/,$(filter-out %.d,$(subst /, ,$@)));fi)
 	echo -n "$(BUILD)/" > $@ & $(CC) -MM $^ $(INCLUDE) >> $@
 
 # 编译时候指定头文件目录
 include $(RELY_ON)
 $(BUILD)/%.o:%.cpp
-	$(shell if [ ! -d $(subst $(space),/,$(filter-out %.d,$(subst /, ,$@))) ];then mkdir -p $(subst $(space),/,$(filter-out %.d,$(subst /, ,$@)));fi)
-	$(CC) -c $< -o $@ $(STD) $(INCLUDE) $(CFLAGS) $(CWARNIG) $(subst ",\",$(DEFINE))
+	$(CC) -c $< -o $@ $(STD) $(INCLUDE) $(CFLAGS) $(CWARNIG) $(DEFINE)
 
 clean:
 	rm -f $(OBJS) $(RELY_ON) $(TARGET)
