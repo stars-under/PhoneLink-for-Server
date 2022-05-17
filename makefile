@@ -20,6 +20,12 @@ BUILD = build
 
 TARGET = PhoneLink
 
+BUILD_DRI = $(subst .,./$(BUILD),$(shell find ./* -type d))
+
+empty:=
+
+space:=$(empty) #
+
 .PHONY:all clean
 
 all:  $(TARGET)
@@ -28,6 +34,7 @@ $(TARGET): $(OBJS)
 	$(LD) -o $@ $^ $(LIB)
 
 $(BUILD)/%.d:%.cpp
+	$(shell if [ ! -d $(subst $(space),/,$(filter-out %.d,$(subst /, ,$@))) ];then mkdir -p $(subst $(space),/,$(filter-out %.d,$(subst /, ,$@)));fi)
 	echo -n "$(BUILD)/" > $@ & $(CC) -MM $^ $(INCLUDE) >> $@
 
 # 编译时候指定头文件目录

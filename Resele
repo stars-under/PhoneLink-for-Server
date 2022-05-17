@@ -33,6 +33,7 @@ $(BUILD)/%.d:%.cpp
 # 编译时候指定头文件目录
 include $(RELY_ON)
 $(BUILD)/%.o:%.cpp
+	$(shell if [ ! -d $(subst $(space),/,$(filter-out %.d,$(subst /, ,$@))) ];then mkdir -p $(subst $(space),/,$(filter-out %.d,$(subst /, ,$@)));fi)
 	$(CC) -c $< -o $@ $(STD) $(INCLUDE) $(CFLAGS) $(CWARNIG) $(subst ",\",$(DEFINE))
 
 clean:
