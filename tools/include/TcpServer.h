@@ -127,7 +127,7 @@ public:
     /**
      * @brief 查找list中是否存在this
      *
-     * @param list 被存在的list'表
+     * @param list 被查询的list表
      * @return std::list<DeviceUnit *>::iterator
      */
     std::list<DeviceUnit *>::iterator ListLookUpThis(std::list<DeviceUnit *> *list);
