@@ -10,14 +10,6 @@ TemporaryData::TemporaryData()
     this->deleteMemory = NULL;
 }
 
-char *getStringCopy(char *data)
-{
-    size_t len = strlen(data);
-    char *str = new char[len];
-    memcpy(str, data, len);
-    return str;
-}
-
 int GetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device)
 {
     std::map<int32_t, TemporaryData *>::iterator it = temporaryData.find(args->key);
@@ -49,18 +41,6 @@ int GetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device)
         return 1;
     }
     return -1;
-}
-
-std::list<char *>::iterator lookUpListCharPointer(std::list<char *> *list, char *str)
-{
-    for (std::list<char *>::iterator i = list->begin(); i != list->end(); i++)
-    {
-        if (strcmp(*i, str) == 0)
-        {
-            return i;
-        }
-    }
-    return list->end();
 }
 
 int SetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device, void *data, size_t dataLen, int (*temporaryFun)(TemporaryData *, DeviceUnit *), int (*deleteMemory)(TemporaryData *))
