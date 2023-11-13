@@ -83,14 +83,14 @@ ImageFile::~ImageFile()
 
 int SyncImage(PhoneLinkDevice *args, DeviceUnit *device)
 {
-    device->in->socketSendString("OK");
+    device->in->socketSendString((char*)"OK");
 
     ImageFile *image = new ImageFile;
     size_t len = 0;
 
     FunctionErrorDispose(image->name = device->in->socketRead(&len), return -1);
 
-    FunctionErrorDispose(device->in->socketSendString("OK"), return -1);
+    FunctionErrorDispose(device->in->socketSendString((char*)"OK"), return -1);
 
     FunctionErrorDispose(image->data = device->in->socketRead(&len), return -1);
 
@@ -112,7 +112,7 @@ int SyncImage(PhoneLinkDevice *args, DeviceUnit *device)
         }
 
         //发送请求
-        scoketSign = deviceTarget->out->socketSendString("SyncImage");
+        scoketSign = deviceTarget->out->socketSendString((char*)"SyncImage");
         if (scoketSign <= 0)
         {
             goto DeviceOff;
@@ -151,7 +151,7 @@ int SyncImage(PhoneLinkDevice *args, DeviceUnit *device)
 
         //发送ImageData
         scoketSign = deviceTarget->out->socketSend(image->data, image->len);
-        if (scoketSign == NULL)
+        if (scoketSign == 0)
         {
             goto DeviceOff;
         }
@@ -167,7 +167,7 @@ int SyncImage(PhoneLinkDevice *args, DeviceUnit *device)
         args->lock->lock();
     }
 
-    FunctionErrorDispose(device->in->socketSendString("OK"), return -1);
+    FunctionErrorDispose(device->in->socketSendString((char*)"OK"), return -1);
 
     FunctionErrorDispose(device->in->socketSend(&syncSuccessNum, sizeof(syncSuccessNum)), return -1);
 
@@ -181,7 +181,7 @@ int ImageTemporary(TemporaryData *data, DeviceUnit *device)
 
     int scoketSign;
     //发送请求
-    FunctionErrorDispose(device->out->socketSendString("SyncImage"), return -1);
+    FunctionErrorDispose(device->out->socketSendString((char*)"SyncImage"), return -1);
 
     ReadOKErrorDispose(*device->out, return -1, return -2);
 

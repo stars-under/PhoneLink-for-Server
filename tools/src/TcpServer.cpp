@@ -6,7 +6,7 @@ TcpServer::TcpServer(unsigned int port, int (*Fun)(PhoneLinkDevice *, DeviceUnit
 {
     int serverState;
     
-    memset(&this->socketConfigure, NULL, sizeof(this->socketConfigure));
+    memset(&this->socketConfigure, 0, sizeof(this->socketConfigure));
     this->socketConfigure.sin_family = AF_INET;
     this->socketConfigure.sin_addr.s_addr = htonl(INADDR_ANY);
     this->socketConfigure.sin_port = htons(port);
@@ -89,7 +89,7 @@ void TcpServer::ServerFrame::serverUnit(TcpServer::ServerFrame *data)
     do
     {
 
-        memset(&data->data, NULL, sizeof(data->data));
+        memset(&data->data, 0, sizeof(data->data));
         // memset(&buff,NULL,sizeof(buff));
         //将Data本身作为一个对象接收数据
         if (recv(data->socket, &data->data, (sizeof(TcpServer::ServerFrame::DataType::DataKey)), MSG_WAITALL) != sizeof(TcpServer::ServerFrame::DataType::DataKey))
@@ -105,8 +105,8 @@ void TcpServer::ServerFrame::serverUnit(TcpServer::ServerFrame *data)
         }
 
         DataHead head(3);
-        send(data->socket, &head, sizeof(head), NULL);
-        send(data->socket, "OK", strlen("OK") + 1, NULL);
+        send(data->socket, &head, sizeof(head), 0);
+        send(data->socket, "OK", strlen("OK") + 1, 0);
 
         if (data->serverIn == NULL)
         {
@@ -153,7 +153,7 @@ void TcpServer::ServerFrame::serverUnit(TcpServer::ServerFrame *data)
                 //不存在In端口不允许Out端口连接
                 if (data->data.head.streamDriection == OUT)
                 {
-                    stream->socketSendString("不存在的IN端口");
+                    stream->socketSendString((char*)"不存在的IN端口");
                     errorOut("不存在IN端口的OUT端口连接\n");
                     delete stream;
                     goto GOTO_EXIT;
@@ -179,7 +179,7 @@ void TcpServer::ServerFrame::serverUnit(TcpServer::ServerFrame *data)
             //不存在In端口不允许Out端口连接
             if (data->data.head.streamDriection == OUT)
             {
-                stream->socketSendString("不存在的IN端口");
+                stream->socketSendString((char*)"不存在的IN端口");
                 errorOut("不存在IN端口的OUT端口连接\n");
                 delete stream;
                 goto GOTO_EXIT;
@@ -189,7 +189,7 @@ void TcpServer::ServerFrame::serverUnit(TcpServer::ServerFrame *data)
             deviceUnitTarget = args->addDevice(deviceUnit);
         }
 
-        stream->socketSendString("OK");
+        stream->socketSendString((char*)"OK");
 
         *((data->data.head.streamDriection == IN) ? (&deviceUnitTarget->in) : (&deviceUnitTarget->out)) = stream;
 
@@ -210,7 +210,7 @@ void TcpServer::ServerFrame::serverUnit(TcpServer::ServerFrame *data)
             }
         }
 
-        (data->data.head.streamDriection == IN) ? (data->serverIn(&*it, deviceUnitTarget)) : (NULL);
+        (data->data.head.streamDriection == IN) ? (data->serverIn(&*it, deviceUnitTarget)) : (0);
 
     } while (false);
 GOTO_EXIT:
@@ -289,7 +289,7 @@ int socketStream::socketSend(void *data, size_t len)
     {
         return 0;
     }
-    if (len == NULL)
+    if (len == 0)
     {
         return 0;
     }
@@ -321,7 +321,7 @@ int socketStream::socketSendString(char *data, size_t len)
     {
         return 0;
     }
-    if (len == NULL)
+    if (len == 0)
     {
         len = strlen(data) + 1;
     }
@@ -486,7 +486,7 @@ socketStream::socketStream(int socket)
 
 socketStream::~socketStream()
 {
-    if (this->socket != NULL)
+    if (this->socket != 0)
     {
         close(this->socket);
     }
@@ -520,7 +520,7 @@ DeviceUnit *PhoneLinkDevice::lookUpDevice(DeviceUnit *unit)
         DeviceUnit *device = (*i);
         if ((*device == *unit) == true)
         {
-            errorOut(unit->name);
+            errorOut("%s",unit->name);
             return device;
         }
     }

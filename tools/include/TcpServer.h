@@ -60,7 +60,7 @@ enum ReadOKStart
 class socketStream
 {
 public:
-    int socket = NULL;
+    int socket = 0;
     socketStream(int socket);
     /**
      * @brief 发送一段数据
@@ -86,7 +86,7 @@ public:
      * @param len 字符串长度,可置为空(自动计算)
      * @return int 发送正常返回1,失败返回0
      */
-    int socketSendString(char *data, size_t len = NULL);
+    int socketSendString(char *data, size_t len = 0);
     /**
      * @brief 检测回发的状态
      *
@@ -111,7 +111,7 @@ class DeviceUnit
 public:
     bool OnLineStatus = true;
     char *name = NULL;
-    size_t nameLen = NULL;
+    size_t nameLen = 0;
     socketStream *in = NULL;
     socketStream *out = NULL;
     /**
@@ -150,7 +150,7 @@ typedef struct PhoneLinkDevice
 {
 public:
     std::mutex *lock;
-    int32_t key = NULL;
+    int32_t key = 0;
     char keyString[0x09];
     std::list<DeviceUnit *> deviceUnitList;
     PhoneLinkDevice();

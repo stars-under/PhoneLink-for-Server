@@ -5,7 +5,7 @@ std::map<int32_t, TemporaryData *> temporaryData;
 TemporaryData::TemporaryData()
 {
     this->data = NULL;
-    this->dataLen = NULL;
+    this->dataLen = 0;
     this->syncFun = NULL;
     this->deleteMemory = NULL;
 }
@@ -15,12 +15,12 @@ int GetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device)
     std::map<int32_t, TemporaryData *>::iterator it = temporaryData.find(args->key);
     if (it == temporaryData.end())
     {
-        device->in->socketSendString("当前暂存区无数据");
+        device->in->socketSendString((char*)"当前暂存区无数据");
         return 0;
     }
     if (it->second->syncFun == NULL)
     {
-        device->in->socketSendString("No Fun");
+        device->in->socketSendString((char*)"No Fun");
         errorOut("同步数据无函数!\n");
         return 0;
     }
@@ -29,7 +29,7 @@ int GetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device)
 
     if (itDevice != it->second->deviceList.end())
     {
-        device->in->socketSendString("当前暂存区无数据");
+        device->in->socketSendString((char*)"当前暂存区无数据");
         return 0;
     }
 
@@ -37,7 +37,7 @@ int GetTemporaryData(PhoneLinkDevice *args, DeviceUnit *device)
     {
 
         it->second->deviceList.push_front(device);
-        device->in->socketSendString("OK");
+        device->in->socketSendString((char*)"OK");
         return 1;
     }
     return -1;

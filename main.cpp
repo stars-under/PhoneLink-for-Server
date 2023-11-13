@@ -22,9 +22,9 @@ int setDeviceInformation(PhoneLinkDevice *args, DeviceUnit *device)
 }
 
 ShellType funFrom[] = {
-    textSync, "textSync",
-    GetTemporaryData, "GetTemporaryData",
-    SyncImage,"SyncImage",
+    textSync, (char*)"textSync",
+    GetTemporaryData, (char*)"GetTemporaryData",
+    SyncImage, (char*)"SyncImage",
     };
 
 int fun(PhoneLinkDevice *args, DeviceUnit *device)
@@ -53,7 +53,7 @@ int fun(PhoneLinkDevice *args, DeviceUnit *device)
                 goto funEXIT;
             }
         }
-        device->in->socketSendString("ON business FUN");
+        device->in->socketSendString((char*)"ON business FUN");
     funEXIT:
         DeleteDataMemory(businessStr);
     }
